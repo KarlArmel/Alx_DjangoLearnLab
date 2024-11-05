@@ -1,11 +1,10 @@
 ## Delete Operation
 
-**Command**:
-```python
-# Delete the book instance
-book = Book.objects.get(title="Nineteen Eighty-Four", author="George Orwell")
-book.delete()
+In this operation, we will delete the `Book` instance that we created earlier and confirm its deletion by attempting to retrieve it again.
 
-# Try retrieving all books (should return an empty queryset if the deletion was successful)
-books = Book.objects.all()
-print(books)
+### Command to execute in Django shell:
+
+First, open the Django shell with:
+
+```bash
+python manage.py shell
