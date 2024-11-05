@@ -1,1 +1,1 @@
-# First Django Project
+# Introduction to Django
