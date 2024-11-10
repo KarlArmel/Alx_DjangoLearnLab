@@ -6,6 +6,7 @@ from django.views.generic.detail import DetailView
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.views import LoginView, LogoutView
+["relationship_app/register.html"]
 
 def list_books(request):
     books = Book.objects.all()
