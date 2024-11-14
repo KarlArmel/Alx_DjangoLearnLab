@@ -146,3 +146,37 @@ SECURE_HSTS_INCLUDE_SUBDOMAINS = True
 SECURE_HSTS_PRELOAD = True
 
 ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
+SECURE_SSL_REDIRECT = True
+# Time in seconds (1 year)
+SECURE_HSTS_SECONDS = 31536000
+
+# Include subdomains in HSTS policy
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+
+# Allow the site to be preloaded in browsers (only set this to True if you are sure your site is fully HTTPS)
+SECURE_HSTS_PRELOAD = True
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_BROWSER_XSS_FILTER = True
+# Enforce HTTPS redirection
+SECURE_SSL_REDIRECT = True  # Redirect all HTTP requests to HTTPS
+
+# Enable HTTP Strict Transport Security (HSTS) to ensure browsers use HTTPS
+SECURE_HSTS_SECONDS = 31536000  # 1 year
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True  # Allow preloading in browsers
+
+# Secure cookies
+SESSION_COOKIE_SECURE = True  # Enforce secure session cookies over HTTPS
+CSRF_COOKIE_SECURE = True  # Enforce secure CSRF cookies over HTTPS
+
+# Clickjacking protection
+X_FRAME_OPTIONS = 'DENY'
+
+# Prevent MIME sniffing
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Enable browser's XSS filter
+SECURE_BROWSER_XSS_FILTER = True
