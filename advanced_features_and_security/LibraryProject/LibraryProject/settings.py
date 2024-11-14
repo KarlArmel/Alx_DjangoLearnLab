@@ -15,6 +15,7 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+DEBUG = False
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -123,3 +124,25 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+# Prevents browsers from loading pages in an iframe from a different domain
+X_FRAME_OPTIONS = 'DENY'
+
+# Enables the browser’s built-in XSS filter
+SECURE_BROWSER_XSS_FILTER = True
+
+# Prevents browsers from interpreting files as something else (e.g. scripts)
+SECURE_CONTENT_TYPE_NOSNIFF = True
+
+# Ensure that cookies are only sent over HTTPS connections
+CSRF_COOKIE_SECURE = True  # Protects CSRF cookie over HTTPS
+SESSION_COOKIE_SECURE = True  # Protects session cookie over HTTPS
+
+
+# Enforces HTTPS connections
+SECURE_HSTS_SECONDS = 3600  # HSTS for 1 hour; increase for production
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+ALLOWED_HOSTS = ['yourdomain.com', 'www.yourdomain.com']
