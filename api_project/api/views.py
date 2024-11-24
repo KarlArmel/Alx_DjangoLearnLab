@@ -2,6 +2,7 @@ from django.shortcuts import render
 ["generics.ListAPIView"]
 ["viewsets.ModelViewSet"]
 # Create your views here.
+from rest_framework.permissions import IsAuthenticated
 from rest_framework.generics import ListAPIView
 from rest_framework.viewsets import ModelViewSet
 from .models import Book
@@ -19,3 +20,4 @@ class BookViewSet(ModelViewSet):
     """
     queryset = Book.objects.all()
     serializer_class = BookSerializer
+    permission_classes = [IsAuthenticated]
