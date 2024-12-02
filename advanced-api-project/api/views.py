@@ -5,6 +5,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from .models import Book
 from .serializers import BookSerializer
 import django_filters
+from django_filters import rest_framework
 
 class BookListView(generics.ListCreateAPIView):
     """
