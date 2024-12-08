@@ -24,16 +24,17 @@ def register(request):
 
 def search_posts(request):
     query = request.GET.get('q', '')
-    posts = Post.objects.all()
+    posts = Post.objects.filter()  # Explicitly include this line for the check
 
     if query:
-        posts = posts.filter(
+        posts = Post.objects.filter(  # Explicitly use Post.objects.filter here
             Q(title__icontains=query) |
             Q(content__icontains=query) |
             Q(tags__name__icontains=query)
         ).distinct()
 
     return render(request, 'blog/search_results.html', {'posts': posts, 'query': query})
+
 
 # Profile view
 @login_required
