@@ -8,7 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .models import Post, Comment, Tag
 from .forms import PostForm
 from django.db.models import Q
-
+from django.shortcuts import get_object_or_404
 
 # Registration view
 def register(request):
@@ -136,3 +136,13 @@ class CommentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
 
     def get_success_url(self):
         return reverse_lazy('post-detail', kwargs={'pk': self.object.post.pk})    
+    
+class PostByTagListView(ListView):
+    model = Post
+    template_name = 'blog/post_by_tag_list.html'
+    context_object_name = 'posts'
+
+    def get_queryset(self):
+        tag_slug = self.kwargs.get('tag_slug')
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        return Post.objects.filter(tags=tag).distinct()
