@@ -1,31 +1,26 @@
-from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.forms import UserCreationForm
 from django.shortcuts import render, redirect
+from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm, UserProfileForm
-from django.contrib import messages
+from .forms import CustomUserCreationForm
 
-# User Registration View
+# Registration view
 def register(request):
-    if request.method == "POST":
+    if request.method == 'POST':
         form = CustomUserCreationForm(request.POST)
         if form.is_valid():
-            form.save()
-            messages.success(request, 'Account created successfully!')
-            return redirect('login')
+            user = form.save()
+            login(request, user)  # Automatically log the user in
+            return redirect('profile')  # Redirect to the profile page
     else:
         form = CustomUserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
+    return render(request, 'blog/register.html', {'form': form})
 
-# Profile Management View
+# Profile view
 @login_required
 def profile(request):
     if request.method == 'POST':
-        form = UserProfileForm(request.POST, instance=request.user)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Profile updated successfully!')
-            return redirect('profile')
-    else:
-        form = UserProfileForm(instance=request.user)
-    return render(request, 'profile.html', {'form': form})
+        user = request.user
+        user.email = request.POST.get('email', user.email)
+        user.save()
+        return render(request, 'blog/profile.html', {'success': True})
+    return render(request, 'blog/profile.html')
