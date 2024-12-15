@@ -73,3 +73,8 @@ class UserListView(generics.ListAPIView):
     queryset = CustomUser.objects.all()  # Ensure CustomUser is being referenced here
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]  # This ensures only authenticated users can access this endpoint
+
+class Generics(generics.GenericAPIView):
+    queryset = CustomUser.objects.all()  # Ensure CustomUser is being referenced here
+    serializer_class = UserSerializer
+    permission_classes = [permissions.IsAuthenticated]  # This ensures only authenticated users can access this endpoint
