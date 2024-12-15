@@ -14,3 +14,5 @@ urlpatterns = [
     path('<int:post_id>/unlike/', views.unlike_post, name='unlike_post'),
 
 ]
+
+"<int:pk>/like/", "<int:pk>/unlike/"
