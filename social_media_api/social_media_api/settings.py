@@ -135,3 +135,39 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+DEBUG = False
+
+ALLOWED_HOSTS = ['your-domain.com', 'www.your-domain.com', 'your-ip-address']
+
+SECURE_BROWSER_XSS_FILTER = True
+X_FRAME_OPTIONS = 'DENY'
+SECURE_CONTENT_TYPE_NOSNIFF = True
+SECURE_SSL_REDIRECT = True  # Forces HTTPS
+SECURE_HSTS_SECONDS = 31536000  # One year for HSTS
+SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+SECURE_HSTS_PRELOAD = True
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'your_database',
+        'USER': 'your_db_user',
+        'PASSWORD': 'your_db_password',
+        'HOST': 'your_db_host',
+        'PORT': 'your_db_port',  # Default is 5432
+    }
+}
+
+STATIC_URL = '/static/'
+
+# For media files
+MEDIA_URL = '/media/'
+
+import environ
+
+env = environ.Env()
+environ.Env.read_env()  # Reads the .env file
+
+SECRET_KEY = env('DJANGO_SECRET_KEY')
+DATABASES['default'] = env.db('DATABASE_URL')
