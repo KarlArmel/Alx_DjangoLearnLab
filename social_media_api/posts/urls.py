@@ -10,4 +10,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('feed/', FeedViewSet.as_view({'get': 'list'})),  # Feed endpoint
     path('', include(router.urls)),
+    path('<int:post_id>/like/', views.like_post, name='like_post'),
+    path('<int:post_id>/unlike/', views.unlike_post, name='unlike_post'),
+
 ]
