@@ -21,3 +21,4 @@ urlpatterns = [
 ]
 
 "post/<int:pk>/update/"
+"comment/<int:pk>/update/", "post/<int:pk>/comments/new/"
