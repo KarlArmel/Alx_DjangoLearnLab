@@ -71,3 +71,5 @@ class ProfileView(APIView):
 @permission_classes([IsAuthenticated]) # type: ignore
 def follow_user(request, user_id):
     ...
+
+"generics.GenericAPIView", "permissions.IsAuthenticated", "CustomUser.objects.all()"
