@@ -1,20 +1,20 @@
 from django.shortcuts import render
-
-# Create your views here.
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from rest_framework import status, permissions
+from rest_framework import status, permissions, generics
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate, get_user_model
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from django.http import Http404
-from .models import CustomUser
+from .models import CustomUser  # Assuming CustomUser is your user model
 from .serializers import RegisterSerializer, UserSerializer
 
-User = get_user_model()
+# Use CustomUser if it's your user model
+User = CustomUser  # Or use get_user_model() if you're dynamically using the default user model
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def follow_user(request, user_id):
     try:
         user_to_follow = User.objects.get(id=user_id)
@@ -24,10 +24,11 @@ def follow_user(request, user_id):
     if user_to_follow == request.user:
         return Response({"detail": "You cannot follow yourself."}, status=status.HTTP_400_BAD_REQUEST)
 
-    request.user.following.add(user_to_follow)
+    request.user.following.add(user_to_follow)  # Ensure the `following` field is part of the CustomUser model
     return Response({"detail": f"Now following {user_to_follow.username}."}, status=status.HTTP_200_OK)
 
 @api_view(['POST'])
+@permission_classes([IsAuthenticated])
 def unfollow_user(request, user_id):
     try:
         user_to_unfollow = User.objects.get(id=user_id)
@@ -37,7 +38,7 @@ def unfollow_user(request, user_id):
     if user_to_unfollow == request.user:
         return Response({"detail": "You cannot unfollow yourself."}, status=status.HTTP_400_BAD_REQUEST)
 
-    request.user.following.remove(user_to_unfollow)
+    request.user.following.remove(user_to_unfollow)  # Same as above, ensure `following` is a valid field
     return Response({"detail": f"Unfollowed {user_to_unfollow.username}."}, status=status.HTTP_200_OK)
 
 class RegisterView(APIView):
@@ -67,9 +68,8 @@ class ProfileView(APIView):
         serializer = UserSerializer(user)
         return Response(serializer.data)
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated]) # type: ignore
-def follow_user(request, user_id):
-    ...
-
-"generics.GenericAPIView", "permissions.IsAuthenticated", "CustomUser.objects.all()"
+# If you're using a generics view, here's an example
+class UserListView(generics.ListAPIView):
+    queryset = CustomUser.objects.all()  # Ensure CustomUser is being referenced here
+    serializer_class = UserSerializer
+    permission_classes = [IsAuthenticated]  # This ensures only authenticated users can access this endpoint
