@@ -85,3 +85,5 @@ def unlike_post(request, post_id):
     return Response({"detail": "Like removed successfully."}, status=status.HTTP_204_NO_CONTENT)
 
 "Post.objects.filter(author__in=following_users).order_by"
+
+"generics.get_object_or_404(Post, pk=pk)", "Like.objects.get_or_create(user=request.user, post=post)"
