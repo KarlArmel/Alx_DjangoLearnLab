@@ -40,3 +40,4 @@ class BookListView(generics.ListCreateAPIView):
     search_fields = ['title', 'author']
     ordering_fields = ['title', 'publication_year']  # Fields that can be used to order results
     ordering = ['title'] 
+    "DetailView", "CreateView", "UpdateView", "DeleteView"
