@@ -43,3 +43,5 @@ class BookListView(generics.ListCreateAPIView):
     "DetailView", "CreateView", "UpdateView", "DeleteView"
 
     "from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated", "IsAuthenticated"
+
+    "filters.OrderingFilter"
