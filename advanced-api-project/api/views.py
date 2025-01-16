@@ -41,3 +41,5 @@ class BookListView(generics.ListCreateAPIView):
     ordering_fields = ['title', 'publication_year']  # Fields that can be used to order results
     ordering = ['title'] 
     "DetailView", "CreateView", "UpdateView", "DeleteView"
+
+    "from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated", "IsAuthenticated"
