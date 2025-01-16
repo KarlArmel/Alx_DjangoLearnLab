@@ -45,3 +45,4 @@ class BookListView(generics.ListCreateAPIView):
     "from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAuthenticated", "IsAuthenticated"
 
     "filters.OrderingFilter"
+    "filters.SearchFilter"
